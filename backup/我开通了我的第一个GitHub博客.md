@@ -11,3 +11,5 @@
 顺带一提，在我写这些文字时，我的1个半月大的暹罗猫正贴着我打字的左手（它真的很粘人）。
 无论是谁看到这里都十分感谢！
 2026.7.22
+
+<img width="1181" height="1181" alt="Image" src="https://github.com/user-attachments/assets/f9c50f76-d3b1-40c0-ac2c-f8b91fe82e1d" />
