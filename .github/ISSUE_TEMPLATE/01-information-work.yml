@@ -22,13 +22,12 @@ body:
     id: content
     attributes:
       label: 作品内容
-      description: 支持 Markdown。可写背景、过程、方法和成果。
+      description: 支持 Markdown。可写背景、过程、方法和成果；点击编辑框底部的附件提示可从本地上传图片，也可拖入或粘贴图片，等待链接生成后再提交。
       placeholder: |
         ## 背景
 
         ## 设计与过程
 
         ## 成果
-      render: markdown
     validations:
       required: true

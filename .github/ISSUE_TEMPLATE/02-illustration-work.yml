@@ -16,11 +16,10 @@ body:
     id: artwork
     attributes:
       label: 绘画作品与说明
-      description: 将图片拖入此处上传；也可以粘贴图片链接。支持 Markdown。
+      description: 点击此编辑框底部的附件提示（选择文件）从本地上传图片，也可将图片拖入框内或粘贴剪贴板中的图片。等待图片链接生成后再提交；支持 Markdown。
       placeholder: |
         ![作品标题](图片链接)
 
         ## 创作说明
-      render: markdown
     validations:
       required: true

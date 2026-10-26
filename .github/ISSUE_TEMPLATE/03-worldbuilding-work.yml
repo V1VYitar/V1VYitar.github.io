@@ -16,13 +16,12 @@ body:
     id: content
     attributes:
       label: 世界观内容
-      description: 支持 Markdown。可写设定、角色、地点、故事或创作笔记。
+      description: 支持 Markdown。可写设定、角色、地点、故事或创作笔记；点击编辑框底部的附件提示可从本地上传图片，也可拖入或粘贴图片，等待链接生成后再提交。
       placeholder: |
         ## 世界与背景
 
         ## 角色与故事
 
         ## 补充设定
-      render: markdown
     validations:
       required: true
