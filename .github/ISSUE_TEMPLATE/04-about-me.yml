@@ -1,0 +1,45 @@
+name: 关于我（个人档案）
+description: 填写自我简介，以及游戏、音乐、影视、漫画、小说兴趣；与作品发布分开。
+title: "关于我"
+labels:
+  - 关于我
+body:
+  - type: markdown
+    attributes:
+      value: |
+        首次填写后提交即可。以后请编辑同一篇 Issue 更新个人档案，不必重复新建。
+        每个输入框均支持 Markdown、图片和链接。点击输入框底部的附件提示选择本地图片，也可拖入或粘贴图片；等待上传完成后再提交。
+        保留各栏位标题，主页会据此读取内容。兴趣栏位可暂时留空。
+  - type: textarea
+    id: biography
+    attributes:
+      label: 自我简介
+      description: 介绍一下自己，也可以上传头像或个人照片。
+      placeholder: 名字、创作方向、想说的话……
+    validations:
+      required: true
+  - type: textarea
+    id: games
+    attributes:
+      label: 游戏
+      description: 喜欢的游戏、游玩记录与推荐，可上传图片。
+  - type: textarea
+    id: music
+    attributes:
+      label: 音乐
+      description: 喜欢的音乐、专辑、音乐人与聆听感受，可上传图片。
+  - type: textarea
+    id: screen
+    attributes:
+      label: 影视
+      description: 喜欢的电影、剧集、动画与观后感，可上传图片。
+  - type: textarea
+    id: comics
+    attributes:
+      label: 漫画
+      description: 喜欢的漫画、作者与阅读感受，可上传图片。
+  - type: textarea
+    id: novels
+    attributes:
+      label: 小说
+      description: 喜欢的小说、作家与阅读笔记，可上传图片。
