@@ -1,0 +1,28 @@
+name: 世界观作品
+description: 发布原创世界设定、故事、角色与灵感片段
+title: "[世界观作品] "
+labels:
+  - 世界观作品
+body:
+  - type: input
+    id: subtitle
+    attributes:
+      label: 一句话介绍
+      description: 将显示在作品正文开头。
+      placeholder: 这个世界、角色或故事的核心想法
+    validations:
+      required: true
+  - type: textarea
+    id: content
+    attributes:
+      label: 世界观内容
+      description: 支持 Markdown。可写设定、角色、地点、故事或创作笔记。
+      placeholder: |
+        ## 世界与背景
+
+        ## 角色与故事
+
+        ## 补充设定
+      render: markdown
+    validations:
+      required: true

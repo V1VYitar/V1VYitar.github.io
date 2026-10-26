@@ -1,0 +1,26 @@
+name: 绘画作品
+description: 发布插画、角色设计、场景图或绘画练习
+title: "[绘画作品] "
+labels:
+  - 绘画作品
+body:
+  - type: input
+    id: subtitle
+    attributes:
+      label: 一句话介绍
+      description: 将显示在作品正文开头。
+      placeholder: 作品名称、主题或创作想法
+    validations:
+      required: true
+  - type: textarea
+    id: artwork
+    attributes:
+      label: 绘画作品与说明
+      description: 将图片拖入此处上传；也可以粘贴图片链接。支持 Markdown。
+      placeholder: |
+        ![作品标题](图片链接)
+
+        ## 创作说明
+      render: markdown
+    validations:
+      required: true

@@ -1,0 +1,34 @@
+name: 信息作品
+description: 发布信息设计、研究、教程或可视化作品
+title: "[信息作品] "
+labels:
+  - 信息作品
+body:
+  - type: input
+    id: subtitle
+    attributes:
+      label: 一句话介绍
+      description: 将显示在作品正文开头。
+      placeholder: 这个作品解决或表达了什么？
+    validations:
+      required: true
+  - type: input
+    id: cover
+    attributes:
+      label: 封面图片链接（可选）
+      description: 可先将图片拖入下方正文框上传，再粘贴图片链接。
+      placeholder: https://
+  - type: textarea
+    id: content
+    attributes:
+      label: 作品内容
+      description: 支持 Markdown。可写背景、过程、方法和成果。
+      placeholder: |
+        ## 背景
+
+        ## 设计与过程
+
+        ## 成果
+      render: markdown
+    validations:
+      required: true
