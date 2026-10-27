@@ -55,6 +55,11 @@ jobs:
           cp -a /opt/Gmeek/backup ${{ github.workspace }} 
           cp /opt/Gmeek/blogBase.json ${{ github.workspace }} 
           
+      - name: Preserve local cover assets
+        run: |
+          mkdir -p docs/assets
+          cp -a assets/. docs/assets/
+
       - name: update html
         run: |
           git config --local user.email "$(jq -r ".email" config.json)"
