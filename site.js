@@ -10,6 +10,65 @@ document.addEventListener("DOMContentLoaded", () => {
     if (text) node.textContent = text;
     return node;
   };
+
+  // Reuse the original post Issue so comments stay with the published work.
+  const comments = document.querySelector("#postBody") && document.getElementById("comments");
+  if (comments) {
+    const issueLink = document.querySelector('#header a[href^="https://github.com/V1VYitar/V1VYitar.github.io/issues/"]');
+    const issueNumber = issueLink?.href.match(/\/issues\/(\d+)(?:[/?#]|$)/)?.[1];
+    if (issueNumber) {
+      const button = document.getElementById("cmButton");
+      if (button) button.hidden = true;
+      comments.setAttribute("aria-label", "作品评论");
+      comments.append(make("h2", "comments-heading", "留下你的想法"));
+      comments.append(make("p", "comments-note", "使用 GitHub 账号登录后即可评论，留言会同步到这篇作品的 Issue。"));
+      const status = make("p", "comments-status", "评论区将在滚动到这里时加载。" );
+      status.setAttribute("role", "status");
+      const thread = make("div", "comments-thread");
+      const fallback = make("a", "comments-fallback", "也可以前往 GitHub 参与讨论 ↗");
+      fallback.href = issueLink.href;
+      fallback.target = "_blank";
+      fallback.rel = "noopener noreferrer";
+      comments.append(status, thread, fallback);
+      const commentTheme = () => document.documentElement.dataset.colorMode === "dark" ? "github-dark" : "github-light";
+      let started = false;
+      let timeout;
+      const frames = new MutationObserver(() => {
+        const iframe = thread.querySelector("iframe");
+        if (!iframe) return;
+        iframe.title = "GitHub 评论区";
+        iframe.addEventListener("load", () => { status.hidden = true; clearTimeout(timeout); });
+        frames.disconnect();
+      });
+      const loadComments = () => {
+        if (started) return;
+        started = true;
+        status.textContent = "正在加载 GitHub 评论…";
+        const script = document.createElement("script");
+        script.src = "https://utteranc.es/client.js";
+        script.setAttribute("repo", "V1VYitar/V1VYitar.github.io");
+        script.setAttribute("issue-number", issueNumber);
+        script.setAttribute("theme", commentTheme());
+        script.crossOrigin = "anonymous";
+        script.async = true;
+        const failed = () => { status.hidden = false; status.textContent = "评论暂时未能加载，可通过下方链接在 GitHub 留言。"; };
+        script.onerror = failed;
+        frames.observe(thread, {childList:true, subtree:true});
+        timeout = setTimeout(failed, 20000);
+        thread.append(script);
+      };
+      new MutationObserver(() => {
+        thread.querySelector("iframe")?.contentWindow?.postMessage({type:"set-theme", theme:commentTheme()}, "https://utteranc.es");
+      }).observe(document.documentElement, {attributes:true, attributeFilter:["data-color-mode"]});
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(entries => {
+          if (entries.some(entry => entry.isIntersecting)) { loadComments(); observer.disconnect(); }
+        }, {rootMargin:"400px"});
+        observer.observe(comments);
+      } else loadComments();
+    }
+  }
+
   const home = document.querySelector("#content > .SideNav");
   const description = document.querySelector("#content > div:first-child");
   if (home && description && !document.querySelector(".tagTitle, #postBody, .portfolio-hero")) {

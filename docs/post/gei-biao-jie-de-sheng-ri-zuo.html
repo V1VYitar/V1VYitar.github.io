@@ -305,6 +305,10 @@ body:not(.portfolio-home){padding-bottom:270px}
 .closing-scene .cover-photo{width:100%;height:100%;object-fit:cover;object-position:center;--reveal-end:0%}
 .closing-scene .cover-backdrop::after{background:linear-gradient(180deg,var(--paper) 0%,transparent 20%,transparent 78%,var(--paper) 100%)}
 @media(prefers-reduced-motion:reduce){.cover-photo,.cover-scene:not(.closing-scene) .cover-photo,.closing-scene .cover-photo{mask-image:none;-webkit-mask-image:none;transform:none}}
+
+/* Full-bleed opening cover and quiet article discussion. */
+.cover-scene:not(.closing-scene) .cover-photo{width:100%;height:100%;object-fit:cover;object-position:center}
+#comments{margin-top:36px!important}.comments-heading{margin:0 0 8px;font-family:"V1VY Hand",serif;font-size:28px;font-weight:400}.comments-note,.comments-status{font-size:13px;color:var(--muted)}.comments-note{margin:0 0 14px}.comments .utterances{max-width:none}.comments-fallback{font-size:13px}
 </style><script>document.addEventListener("DOMContentLoaded", () => {
   const categories = [
     { label: "信息作品", number: "01", title: ["信息", "作品"], note: "设计、研究与可视化表达" },
@@ -317,6 +321,65 @@ body:not(.portfolio-home){padding-bottom:270px}
     if (text) node.textContent = text;
     return node;
   };
+
+  // Reuse the original post Issue so comments stay with the published work.
+  const comments = document.querySelector("#postBody") && document.getElementById("comments");
+  if (comments) {
+    const issueLink = document.querySelector('#header a[href^="https://github.com/V1VYitar/V1VYitar.github.io/issues/"]');
+    const issueNumber = issueLink?.href.match(/\/issues\/(\d+)(?:[/?#]|$)/)?.[1];
+    if (issueNumber) {
+      const button = document.getElementById("cmButton");
+      if (button) button.hidden = true;
+      comments.setAttribute("aria-label", "作品评论");
+      comments.append(make("h2", "comments-heading", "留下你的想法"));
+      comments.append(make("p", "comments-note", "使用 GitHub 账号登录后即可评论，留言会同步到这篇作品的 Issue。"));
+      const status = make("p", "comments-status", "评论区将在滚动到这里时加载。" );
+      status.setAttribute("role", "status");
+      const thread = make("div", "comments-thread");
+      const fallback = make("a", "comments-fallback", "也可以前往 GitHub 参与讨论 ↗");
+      fallback.href = issueLink.href;
+      fallback.target = "_blank";
+      fallback.rel = "noopener noreferrer";
+      comments.append(status, thread, fallback);
+      const commentTheme = () => document.documentElement.dataset.colorMode === "dark" ? "github-dark" : "github-light";
+      let started = false;
+      let timeout;
+      const frames = new MutationObserver(() => {
+        const iframe = thread.querySelector("iframe");
+        if (!iframe) return;
+        iframe.title = "GitHub 评论区";
+        iframe.addEventListener("load", () => { status.hidden = true; clearTimeout(timeout); });
+        frames.disconnect();
+      });
+      const loadComments = () => {
+        if (started) return;
+        started = true;
+        status.textContent = "正在加载 GitHub 评论…";
+        const script = document.createElement("script");
+        script.src = "https://utteranc.es/client.js";
+        script.setAttribute("repo", "V1VYitar/V1VYitar.github.io");
+        script.setAttribute("issue-number", issueNumber);
+        script.setAttribute("theme", commentTheme());
+        script.crossOrigin = "anonymous";
+        script.async = true;
+        const failed = () => { status.hidden = false; status.textContent = "评论暂时未能加载，可通过下方链接在 GitHub 留言。"; };
+        script.onerror = failed;
+        frames.observe(thread, {childList:true, subtree:true});
+        timeout = setTimeout(failed, 20000);
+        thread.append(script);
+      };
+      new MutationObserver(() => {
+        thread.querySelector("iframe")?.contentWindow?.postMessage({type:"set-theme", theme:commentTheme()}, "https://utteranc.es");
+      }).observe(document.documentElement, {attributes:true, attributeFilter:["data-color-mode"]});
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(entries => {
+          if (entries.some(entry => entry.isIntersecting)) { loadComments(); observer.disconnect(); }
+        }, {rootMargin:"400px"});
+        observer.observe(comments);
+      } else loadComments();
+    }
+  }
+
   const home = document.querySelector("#content > .SideNav");
   const description = document.querySelector("#content > div:first-child");
   if (home && description && !document.querySelector(".tagTitle, #postBody, .portfolio-hero")) {

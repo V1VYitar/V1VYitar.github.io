@@ -298,3 +298,7 @@ body:not(.portfolio-home){padding-bottom:270px}
 .closing-scene .cover-photo{width:100%;height:100%;object-fit:cover;object-position:center;--reveal-end:0%}
 .closing-scene .cover-backdrop::after{background:linear-gradient(180deg,var(--paper) 0%,transparent 20%,transparent 78%,var(--paper) 100%)}
 @media(prefers-reduced-motion:reduce){.cover-photo,.cover-scene:not(.closing-scene) .cover-photo,.closing-scene .cover-photo{mask-image:none;-webkit-mask-image:none;transform:none}}
+
+/* Full-bleed opening cover and quiet article discussion. */
+.cover-scene:not(.closing-scene) .cover-photo{width:100%;height:100%;object-fit:cover;object-position:center}
+#comments{margin-top:36px!important}.comments-heading{margin:0 0 8px;font-family:"V1VY Hand",serif;font-size:28px;font-weight:400}.comments-note,.comments-status{font-size:13px;color:var(--muted)}.comments-note{margin:0 0 14px}.comments .utterances{max-width:none}.comments-fallback{font-size:13px}
