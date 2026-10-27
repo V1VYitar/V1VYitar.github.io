@@ -1,0 +1,28 @@
+{
+  "tracks": [
+    {
+      "file": "suisei.mp3",
+      "title": "水星",
+      "artist": "ラブリーサマーちゃん",
+      "cover": "suisei-cover.jpg"
+    },
+    {
+      "file": "funny-love.mp3",
+      "title": "Funny Love feat. Milka",
+      "artist": "DJ Deckstream",
+      "cover": "funny-love-cover.jpg"
+    },
+    {
+      "file": "aiamaru.mp3",
+      "title": "哀余る",
+      "artist": "polly",
+      "cover": "aiamaru-cover.jpg"
+    },
+    {
+      "file": "breath-in.mp3",
+      "title": "Breath In",
+      "artist": "Felonboy",
+      "cover": "breath-in-cover.jpg"
+    }
+  ]
+}

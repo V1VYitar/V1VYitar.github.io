@@ -258,6 +258,43 @@ html[data-color-mode=dark] .category-card:first-child .category-index,html[data-
 @media(prefers-reduced-motion:reduce){.closing-scene .cover-photo{clip-path:none}}
 
 .portfolio-home #content>.category-heading{max-width:none;margin:0 0 22px!important}.portfolio-home #content>.category-heading:before{display:none}
+
+/* Compact radio, tucked into the lower left corner. */
+.music-player{position:fixed;z-index:1000;left:max(18px,env(safe-area-inset-left));bottom:max(18px,env(safe-area-inset-bottom));width:264px;padding:14px 16px;border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--ink);box-shadow:0 8px 32px #17232f18;font:13px/1.5 "Segoe UI","Noto Sans SC",sans-serif}
+.music-top{display:flex;align-items:center;justify-content:space-between;gap:12px}.music-label{font-size:10px;letter-spacing:.16em;color:var(--muted)}
+.music-player button{min-height:36px;padding:6px 12px;border:1px solid var(--line);border-radius:4px;background:transparent;color:var(--ink);font:inherit;cursor:pointer}
+.music-player button:hover{background:var(--soft)}.music-player button:disabled{opacity:.45;cursor:default}.music-player .music-fold{min-height:28px;width:30px;padding:0;font-size:19px;border:0}
+.music-track{margin:10px 0 2px;font-family:"Noto Serif SC",SimSun,serif;font-size:17px;overflow-wrap:anywhere}.music-artist{margin:0 0 14px;color:var(--muted);font-size:11px}
+.music-buttons{display:flex;gap:8px}.music-player .music-play{background:var(--soft);min-width:65px}.music-next{flex:1}
+.music-volume{display:flex;align-items:center;gap:9px;margin-top:14px;font-size:11px;color:var(--muted)}.music-volume input{min-width:0;flex:1;width:100%;accent-color:var(--blue);cursor:pointer}.music-volume-value{min-width:30px;text-align:right}
+.music-status{margin:10px 0 0;color:var(--muted);font-size:10px}.music-body[hidden]{display:none}
+.portfolio-home #footer{padding-bottom:245px}
+body:not(.portfolio-home){padding-bottom:270px}
+.cover-scene:not(.closing-scene) .cover-photo{width:100%;object-fit:contain;mask-image:linear-gradient(90deg,transparent,#000 18%)}
+.closing-scene{height:calc(clamp(300px,70svh,850px) + 240px)}.closing-scene .cover-backdrop{height:clamp(300px,70svh,850px)}
+@media(max-width:760px){.music-player{left:12px;bottom:max(12px,env(safe-area-inset-bottom));width:238px;padding:10px 13px}.music-player button{min-height:40px}.music-volume input{min-height:28px}.cover-scene:not(.closing-scene) .cover-photo{mask-image:none}}
+
+/* Self-hosted fonts: handwritten Chinese headings and rounded Latin details. */
+@font-face{font-family:"V1VY Hand";src:url("/assets/fonts/MaShanZheng-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"V1VY Round";src:url("/assets/fonts/Comfortaa.woff2") format("woff2");font-weight:300 700;font-style:normal;font-display:swap}
+.cover-foreground .portfolio-title,.category-heading h2,.archive-heading h2,.category-card h3,.postTitle{font-family:"V1VY Hand","Noto Serif SC",SimSun,serif;font-weight:400;letter-spacing:.05em}
+.category-heading h2,.archive-heading h2{font-size:32px}.category-card h3{font-size:34px}.cover-foreground .portfolio-title{line-height:1.35}
+.portfolio-kicker,.category-index,.category-heading>span,.archive-heading>span,.about-eyebrow,.music-label{font-family:"V1VY Round","Segoe UI",sans-serif;font-weight:400}
+.title-left .blogTitle,.about-copy>h3{font-family:"V1VY Round","Segoe UI","Noto Sans SC",sans-serif}
+/* Pocket-size radio: the cover is the visual anchor, controls stay quiet. */
+.music-player{width:278px;padding:9px 11px;border-radius:8px;box-shadow:0 5px 24px #17232f14}
+.music-top{height:21px;margin-bottom:5px}.music-label{font-size:8px;letter-spacing:.12em}.music-player .music-fold{width:24px;min-height:24px;font-size:17px}
+.music-body{display:grid;grid-template-columns:44px minmax(0,1fr) 68px;gap:5px 9px;align-items:center}
+.music-cover{display:block;width:44px;height:44px;object-fit:cover;border-radius:4px;background:var(--soft)}.music-cover[hidden]{display:none}.music-body:has(.music-cover[hidden]) .music-info{grid-column:span 2}
+.music-info{min-width:0}.music-track{margin:0 0 3px;font:500 13px/1.35 "Segoe UI","Noto Sans SC",sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;overflow-wrap:normal}
+.music-artist{margin:0;font-size:10px;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-buttons{gap:4px}.music-player .music-play,.music-player .music-next{display:grid;place-items:center;flex:none;width:32px;min-width:32px;height:34px;min-height:34px;padding:6px;border:0;background:transparent;border-radius:50%}.music-player .music-play{background:var(--soft)}
+.music-buttons svg{display:block;width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.music-play svg:has(path:only-child){fill:currentColor;stroke-width:1}
+.music-volume{grid-column:1/-1;margin:2px 0 0;gap:8px;font-size:9px;line-height:1;min-height:20px}.music-volume input{height:18px;min-height:18px;margin:0}.music-volume-value{min-width:26px}
+.music-status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.music-player.is-folded{width:166px}.music-player.is-folded .music-top{margin:0}.portfolio-home #footer{padding-bottom:140px}body:not(.portfolio-home){padding-bottom:165px}
+@media(max-width:760px){.music-player{width:264px;padding:8px 10px}.music-player .music-play,.music-player .music-next{min-height:36px;height:36px}.music-player .music-fold{min-height:28px}.category-heading h2,.archive-heading h2{font-size:29px}.category-card h3{font-size:32px}}
 </style><script>document.addEventListener("DOMContentLoaded", () => {
   const categories = [
     { label: "信息作品", number: "01", title: ["信息", "作品"], note: "设计、研究与可视化表达" },
@@ -382,14 +419,14 @@ html[data-color-mode=dark] .category-card:first-child .category-index,html[data-
 
     // A full-bleed photographic opening; scroll reveals the crop without moving the page layout.
     const scene = make("section", "cover-scene");
-    scene.setAttribute("aria-label", "野花与草地封面");
+    scene.setAttribute("aria-label", "暮色、身影与飞鸟封面");
     const backdrop = make("div", "cover-backdrop");
     backdrop.setAttribute("aria-hidden", "true");
     const photo = make("img", "cover-photo");
-    photo.src = new URL("assets/meadow-cover.jpg", document.baseURI).href;
+    photo.src = new URL("assets/twilight-cover.jpg", document.baseURI).href;
     photo.alt = "";
-    photo.width = 1080;
-    photo.height = 1082;
+    photo.width = 2048;
+    photo.height = 1080;
     photo.fetchPriority = "high";
     backdrop.append(photo, make("div", "cover-texture"));
     const foreground = make("div", "cover-foreground");
@@ -401,14 +438,14 @@ html[data-color-mode=dark] .category-card:first-child .category-index,html[data-
     const cue = make("span", "cover-scroll-cue", "向下滑动，展开这一刻 ↓");
     foreground.append(cue);
     const closing = make("section", "cover-scene closing-scene");
-    closing.setAttribute("aria-label", "暮色、身影与飞鸟封面");
+    closing.setAttribute("aria-label", "野花与草地封面");
     const closingBackdrop = make("div", "cover-backdrop");
     closingBackdrop.setAttribute("aria-hidden", "true");
     const closingPhoto = make("img", "cover-photo");
-    closingPhoto.src = new URL("assets/twilight-cover.jpg", document.baseURI).href;
+    closingPhoto.src = new URL("assets/meadow-cover.jpg", document.baseURI).href;
     closingPhoto.alt = "";
-    closingPhoto.width = 2048;
-    closingPhoto.height = 1080;
+    closingPhoto.width = 1080;
+    closingPhoto.height = 1082;
     closingPhoto.loading = "lazy";
     closingPhoto.decoding = "async";
     closingBackdrop.append(closingPhoto, make("div", "cover-texture"));
@@ -531,6 +568,153 @@ html[data-color-mode=dark] .category-card:first-child .category-index,html[data-
     tools.append(editAbout, createAbout);
     footer.append(credits, tools);
   }
+
+
+  // The library is a small editable manifest; visitors only see the current track.
+  const music = make("aside", "music-player");
+  music.setAttribute("aria-label", "随机音乐播放器");
+  const musicTop = make("div", "music-top");
+  const musicLabel = make("span", "music-label", "随身听 / RADIO");
+  const fold = make("button", "music-fold", "−");
+  fold.type = "button";
+  fold.setAttribute("aria-label", "收起音乐播放器");
+  fold.setAttribute("aria-expanded", "true");
+  const musicBody = make("div", "music-body");
+  musicBody.id = "music-controls";
+  fold.setAttribute("aria-controls", musicBody.id);
+  fold.addEventListener("click", () => {
+    musicBody.hidden = !musicBody.hidden;
+    music.classList.toggle("is-folded", musicBody.hidden);
+    fold.textContent = musicBody.hidden ? "+" : "−";
+    fold.setAttribute("aria-expanded", String(!musicBody.hidden));
+    fold.setAttribute("aria-label", musicBody.hidden ? "展开音乐播放器" : "收起音乐播放器");
+  });
+  musicTop.append(musicLabel, fold);
+  const cover = make("img", "music-cover");
+  cover.alt = "";
+  cover.width = cover.height = 48;
+  cover.addEventListener("error", () => { cover.hidden = true; });
+  const trackInfo = make("div", "music-info");
+  const nowPlaying = make("p", "music-track", "正在读取音乐库…");
+  const artist = make("p", "music-artist");
+  const musicStatus = make("p", "music-status", "点击播放，让音乐陪你浏览。");
+  musicStatus.setAttribute("role", "status");
+  const controls = make("div", "music-buttons");
+  const playerIcon = (button, kind, label) => {
+    button.replaceChildren();
+    button.setAttribute("aria-label", label);
+    button.title = label;
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("aria-hidden", "true");
+    const paths = {
+      play: ["M8 5l11 7-11 7V5z"],
+      pause: ["M8 5v14", "M16 5v14"],
+      shuffle: ["M3 6h3c4 0 8 12 12 12h3", "M18 15l3 3-3 3", "M3 18h3c1.8 0 3.5-2.3 5-5", "M13 9c1.7-2 3.2-3 5-3h3", "M18 3l3 3-3 3"]
+    };
+    for (const d of paths[kind]) {
+      const path = document.createElementNS(svg.namespaceURI, "path");
+      path.setAttribute("d", d);
+      svg.append(path);
+    }
+    button.append(svg);
+  };
+  const play = make("button", "music-play");
+  const next = make("button", "music-next");
+  playerIcon(play, "play", "播放音乐");
+  playerIcon(next, "shuffle", "随机下一首");
+  play.type = next.type = "button";
+  play.disabled = next.disabled = true;
+  controls.append(play, next);
+  const volumeRow = make("label", "music-volume");
+  volumeRow.append(make("span", "", "音量"));
+  const volume = make("input");
+  volume.type = "range";
+  volume.min = "0";
+  volume.max = "100";
+  volume.value = "35";
+  volume.setAttribute("aria-label", "音乐音量");
+  const volumeValue = make("span", "music-volume-value", "35%");
+  volumeRow.append(volume, volumeValue);
+  trackInfo.append(nowPlaying, artist);
+  musicBody.append(cover, trackInfo, controls, volumeRow, musicStatus);
+  music.append(musicTop, musicBody);
+  document.body.append(music);
+  const audio = new Audio();
+  audio.preload = "none";
+  audio.volume = .35;
+  let tracks = [];
+  let current = -1;
+  let bag = [];
+  let playbackRequest = 0;
+  try {
+    const saved = Number(localStorage.getItem("v1vy-music-volume"));
+    if (localStorage.getItem("v1vy-music-volume") !== null && Number.isFinite(saved)) {
+      audio.volume = Math.max(0, Math.min(1, saved));
+    }
+  } catch {}
+  volume.value = String(Math.round(audio.volume * 100));
+  volumeValue.textContent = volume.value + "%";
+  volume.addEventListener("input", () => {
+    audio.volume = Number(volume.value) / 100;
+    volumeValue.textContent = volume.value + "%";
+    try { localStorage.setItem("v1vy-music-volume", String(audio.volume)); } catch {}
+  });
+  const startMusic = async () => {
+    const request = ++playbackRequest;
+    musicStatus.textContent = "正在载入音乐…";
+    try {
+      await audio.play();
+      if (request === playbackRequest) musicStatus.textContent = "随机播放中";
+    } catch (error) {
+      if (request !== playbackRequest || error.name === "AbortError") return;
+      musicStatus.textContent = error.name === "NotAllowedError" ? "点击播放即可开始。" : "暂时无法播放，请尝试下一首。";
+    }
+  };
+  const chooseTrack = (start = true) => {
+    ++playbackRequest;
+    if (!bag.length) {
+      bag = tracks.map((_, i) => i);
+      for (let i = bag.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [bag[i], bag[j]] = [bag[j], bag[i]];
+      }
+      if (bag.length > 1 && bag[bag.length - 1] === current) [bag[0], bag[bag.length - 1]] = [bag[bag.length - 1], bag[0]];
+    }
+    current = bag.pop();
+    const track = tracks[current];
+    audio.src = track.url;
+    nowPlaying.textContent = track.title;
+    artist.textContent = track.artist;
+    nowPlaying.title = track.title;
+    artist.title = track.artist;
+    cover.hidden = !track.cover;
+    if (track.cover) { cover.src = track.cover; cover.alt = track.title + " · 唱片封面"; }
+    else { cover.removeAttribute("src"); cover.alt = ""; }
+    if (start) startMusic();
+  };
+  play.addEventListener("click", () => {
+    if (audio.paused) startMusic();
+    else { ++playbackRequest; audio.pause(); }
+  });
+  next.addEventListener("click", () => chooseTrack());
+  audio.addEventListener("play", () => { playerIcon(play, "pause", "暂停音乐"); });
+  audio.addEventListener("pause", () => { playerIcon(play, "play", "播放音乐"); musicStatus.textContent = "已暂停"; });
+  audio.addEventListener("ended", () => chooseTrack());
+  audio.addEventListener("error", () => { musicStatus.textContent = "暂时无法播放，请尝试下一首。"; });
+  const libraryUrl = new URL(document.querySelector("#postBody") ? "../assets/music/library.json" : "assets/music/library.json", document.baseURI);
+  fetch(libraryUrl).then(response => {
+    if (!response.ok) throw new Error("Music library unavailable");
+    return response.json();
+  }).then(library => {
+    tracks = library.tracks.filter(track => track.title && track.file).map(track => ({
+      title: track.title, artist: track.artist || "", url: new URL(track.file, libraryUrl).href,
+      cover: track.cover ? new URL(track.cover, libraryUrl).href : ""
+    }));
+    if (!tracks.length) throw new Error("Empty library");
+    chooseTrack(false);
+    play.disabled = next.disabled = false;
+  }).catch(() => { nowPlaying.textContent = "音乐库暂时无法加载"; musicStatus.textContent = "请稍后刷新页面。"; });
 
   const setCategoryTitle = () => {
     const tagTitle = document.querySelector(".tagTitle");

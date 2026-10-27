@@ -122,14 +122,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // A full-bleed photographic opening; scroll reveals the crop without moving the page layout.
     const scene = make("section", "cover-scene");
-    scene.setAttribute("aria-label", "野花与草地封面");
+    scene.setAttribute("aria-label", "暮色、身影与飞鸟封面");
     const backdrop = make("div", "cover-backdrop");
     backdrop.setAttribute("aria-hidden", "true");
     const photo = make("img", "cover-photo");
-    photo.src = new URL("assets/meadow-cover.jpg", document.baseURI).href;
+    photo.src = new URL("assets/twilight-cover.jpg", document.baseURI).href;
     photo.alt = "";
-    photo.width = 1080;
-    photo.height = 1082;
+    photo.width = 2048;
+    photo.height = 1080;
     photo.fetchPriority = "high";
     backdrop.append(photo, make("div", "cover-texture"));
     const foreground = make("div", "cover-foreground");
@@ -141,14 +141,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const cue = make("span", "cover-scroll-cue", "向下滑动，展开这一刻 ↓");
     foreground.append(cue);
     const closing = make("section", "cover-scene closing-scene");
-    closing.setAttribute("aria-label", "暮色、身影与飞鸟封面");
+    closing.setAttribute("aria-label", "野花与草地封面");
     const closingBackdrop = make("div", "cover-backdrop");
     closingBackdrop.setAttribute("aria-hidden", "true");
     const closingPhoto = make("img", "cover-photo");
-    closingPhoto.src = new URL("assets/twilight-cover.jpg", document.baseURI).href;
+    closingPhoto.src = new URL("assets/meadow-cover.jpg", document.baseURI).href;
     closingPhoto.alt = "";
-    closingPhoto.width = 2048;
-    closingPhoto.height = 1080;
+    closingPhoto.width = 1080;
+    closingPhoto.height = 1082;
     closingPhoto.loading = "lazy";
     closingPhoto.decoding = "async";
     closingBackdrop.append(closingPhoto, make("div", "cover-texture"));
@@ -271,6 +271,153 @@ document.addEventListener("DOMContentLoaded", () => {
     tools.append(editAbout, createAbout);
     footer.append(credits, tools);
   }
+
+
+  // The library is a small editable manifest; visitors only see the current track.
+  const music = make("aside", "music-player");
+  music.setAttribute("aria-label", "随机音乐播放器");
+  const musicTop = make("div", "music-top");
+  const musicLabel = make("span", "music-label", "随身听 / RADIO");
+  const fold = make("button", "music-fold", "−");
+  fold.type = "button";
+  fold.setAttribute("aria-label", "收起音乐播放器");
+  fold.setAttribute("aria-expanded", "true");
+  const musicBody = make("div", "music-body");
+  musicBody.id = "music-controls";
+  fold.setAttribute("aria-controls", musicBody.id);
+  fold.addEventListener("click", () => {
+    musicBody.hidden = !musicBody.hidden;
+    music.classList.toggle("is-folded", musicBody.hidden);
+    fold.textContent = musicBody.hidden ? "+" : "−";
+    fold.setAttribute("aria-expanded", String(!musicBody.hidden));
+    fold.setAttribute("aria-label", musicBody.hidden ? "展开音乐播放器" : "收起音乐播放器");
+  });
+  musicTop.append(musicLabel, fold);
+  const cover = make("img", "music-cover");
+  cover.alt = "";
+  cover.width = cover.height = 48;
+  cover.addEventListener("error", () => { cover.hidden = true; });
+  const trackInfo = make("div", "music-info");
+  const nowPlaying = make("p", "music-track", "正在读取音乐库…");
+  const artist = make("p", "music-artist");
+  const musicStatus = make("p", "music-status", "点击播放，让音乐陪你浏览。");
+  musicStatus.setAttribute("role", "status");
+  const controls = make("div", "music-buttons");
+  const playerIcon = (button, kind, label) => {
+    button.replaceChildren();
+    button.setAttribute("aria-label", label);
+    button.title = label;
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("aria-hidden", "true");
+    const paths = {
+      play: ["M8 5l11 7-11 7V5z"],
+      pause: ["M8 5v14", "M16 5v14"],
+      shuffle: ["M3 6h3c4 0 8 12 12 12h3", "M18 15l3 3-3 3", "M3 18h3c1.8 0 3.5-2.3 5-5", "M13 9c1.7-2 3.2-3 5-3h3", "M18 3l3 3-3 3"]
+    };
+    for (const d of paths[kind]) {
+      const path = document.createElementNS(svg.namespaceURI, "path");
+      path.setAttribute("d", d);
+      svg.append(path);
+    }
+    button.append(svg);
+  };
+  const play = make("button", "music-play");
+  const next = make("button", "music-next");
+  playerIcon(play, "play", "播放音乐");
+  playerIcon(next, "shuffle", "随机下一首");
+  play.type = next.type = "button";
+  play.disabled = next.disabled = true;
+  controls.append(play, next);
+  const volumeRow = make("label", "music-volume");
+  volumeRow.append(make("span", "", "音量"));
+  const volume = make("input");
+  volume.type = "range";
+  volume.min = "0";
+  volume.max = "100";
+  volume.value = "35";
+  volume.setAttribute("aria-label", "音乐音量");
+  const volumeValue = make("span", "music-volume-value", "35%");
+  volumeRow.append(volume, volumeValue);
+  trackInfo.append(nowPlaying, artist);
+  musicBody.append(cover, trackInfo, controls, volumeRow, musicStatus);
+  music.append(musicTop, musicBody);
+  document.body.append(music);
+  const audio = new Audio();
+  audio.preload = "none";
+  audio.volume = .35;
+  let tracks = [];
+  let current = -1;
+  let bag = [];
+  let playbackRequest = 0;
+  try {
+    const saved = Number(localStorage.getItem("v1vy-music-volume"));
+    if (localStorage.getItem("v1vy-music-volume") !== null && Number.isFinite(saved)) {
+      audio.volume = Math.max(0, Math.min(1, saved));
+    }
+  } catch {}
+  volume.value = String(Math.round(audio.volume * 100));
+  volumeValue.textContent = volume.value + "%";
+  volume.addEventListener("input", () => {
+    audio.volume = Number(volume.value) / 100;
+    volumeValue.textContent = volume.value + "%";
+    try { localStorage.setItem("v1vy-music-volume", String(audio.volume)); } catch {}
+  });
+  const startMusic = async () => {
+    const request = ++playbackRequest;
+    musicStatus.textContent = "正在载入音乐…";
+    try {
+      await audio.play();
+      if (request === playbackRequest) musicStatus.textContent = "随机播放中";
+    } catch (error) {
+      if (request !== playbackRequest || error.name === "AbortError") return;
+      musicStatus.textContent = error.name === "NotAllowedError" ? "点击播放即可开始。" : "暂时无法播放，请尝试下一首。";
+    }
+  };
+  const chooseTrack = (start = true) => {
+    ++playbackRequest;
+    if (!bag.length) {
+      bag = tracks.map((_, i) => i);
+      for (let i = bag.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [bag[i], bag[j]] = [bag[j], bag[i]];
+      }
+      if (bag.length > 1 && bag[bag.length - 1] === current) [bag[0], bag[bag.length - 1]] = [bag[bag.length - 1], bag[0]];
+    }
+    current = bag.pop();
+    const track = tracks[current];
+    audio.src = track.url;
+    nowPlaying.textContent = track.title;
+    artist.textContent = track.artist;
+    nowPlaying.title = track.title;
+    artist.title = track.artist;
+    cover.hidden = !track.cover;
+    if (track.cover) { cover.src = track.cover; cover.alt = track.title + " · 唱片封面"; }
+    else { cover.removeAttribute("src"); cover.alt = ""; }
+    if (start) startMusic();
+  };
+  play.addEventListener("click", () => {
+    if (audio.paused) startMusic();
+    else { ++playbackRequest; audio.pause(); }
+  });
+  next.addEventListener("click", () => chooseTrack());
+  audio.addEventListener("play", () => { playerIcon(play, "pause", "暂停音乐"); });
+  audio.addEventListener("pause", () => { playerIcon(play, "play", "播放音乐"); musicStatus.textContent = "已暂停"; });
+  audio.addEventListener("ended", () => chooseTrack());
+  audio.addEventListener("error", () => { musicStatus.textContent = "暂时无法播放，请尝试下一首。"; });
+  const libraryUrl = new URL(document.querySelector("#postBody") ? "../assets/music/library.json" : "assets/music/library.json", document.baseURI);
+  fetch(libraryUrl).then(response => {
+    if (!response.ok) throw new Error("Music library unavailable");
+    return response.json();
+  }).then(library => {
+    tracks = library.tracks.filter(track => track.title && track.file).map(track => ({
+      title: track.title, artist: track.artist || "", url: new URL(track.file, libraryUrl).href,
+      cover: track.cover ? new URL(track.cover, libraryUrl).href : ""
+    }));
+    if (!tracks.length) throw new Error("Empty library");
+    chooseTrack(false);
+    play.disabled = next.disabled = false;
+  }).catch(() => { nowPlaying.textContent = "音乐库暂时无法加载"; musicStatus.textContent = "请稍后刷新页面。"; });
 
   const setCategoryTitle = () => {
     const tagTitle = document.querySelector(".tagTitle");
