@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const progress = reducedMotion.matches ? 1 : Math.min(1, Math.max(0, -scene.getBoundingClientRect().top / 240));
       if (progress !== previousProgress) {
       previousProgress = progress;
-      photo.style.clipPath = `inset(0 0 ${32 * (1 - progress)}% 0)`;
+      photo.style.setProperty("--reveal-end", `${82 + 32 * progress}%`);
       photo.style.transform = `scale(${1 + .08 * (1 - progress)})`;
       cue.style.opacity = String(1 - progress);
       }
@@ -173,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
         (window.innerHeight - closing.getBoundingClientRect().top) / (Math.min(window.innerHeight, closingBackdrop.offsetHeight) + 240)));
       if (closingProgress !== previousClosingProgress) {
         previousClosingProgress = closingProgress;
-        closingPhoto.style.clipPath = `inset(0 0 ${100 * (1 - closingProgress)}% 0)`;
+        closingPhoto.style.setProperty("--reveal-end", `${114 * closingProgress}%`);
         closingPhoto.style.transform = "none";
       }
     };
