@@ -175,7 +175,90 @@ html[data-color-mode=dark] .category-heading span,html[data-color-mode=dark] .ar
 .about-content table{display:block;max-width:100%;overflow:auto}.about-content blockquote{margin-left:0;padding-left:18px;border-left:2px solid #f5cc32}
 .about-panel{min-height:110px}.about-panel[hidden],.portfolio-home .SideNav-item[hidden]{display:none!important}
 .about-status{margin:16px 0 0;color:var(--muted);font-size:13px}
-@media(max-width:760px){.about-profile{grid-template-columns:64px minmax(0,1fr);gap:18px;padding:23px 20px}.about-portrait{width:64px;height:64px}.about-copy>h3{font-size:27px}.about-tab{min-width:56px;padding:12px 6px;font-size:15px}.about-panels{padding:22px 20px}.about-content img{max-height:400px}}</style><script>document.addEventListener("DOMContentLoaded", () => {
+/* Photographic opening, below the registration grid and lunar orbit layers. */
+.portfolio-home{max-width:1260px;min-width:320px;margin:0 auto;padding:0 56px 36px;overflow-x:clip;line-height:1.75}
+.portfolio-home .listTitle{white-space:normal;overflow-wrap:anywhere}
+.cover-scene{position:relative;width:100vw;margin-left:calc(50% - 50vw);height:calc(100svh + 240px);min-height:900px;margin-bottom:48px;background:#101b26;isolation:isolate}
+.cover-backdrop{position:sticky;top:0;height:100svh;overflow:hidden;background:#101b26;isolation:isolate}
+.cover-photo{display:block;width:auto;max-width:100%;height:100%;margin-left:auto;object-fit:contain;object-position:right center;mask-image:linear-gradient(90deg,transparent,#000 24%);transform-origin:right center;clip-path:inset(0 0 32% 0);transform:scale(1.08)}
+.cover-texture{position:absolute;inset:0;background:linear-gradient(90deg,#101b36eb 0%,#101b3680 40%,#101b3610 75%),radial-gradient(circle at 92% 24%,transparent 0 269px,#ecd16e30 270px 271px,transparent 272px 293px,#ecd16e15 294px 295px,transparent 296px 353px,#ecd16e15 354px 355px,transparent 356px),radial-gradient(circle at 1px 1px,#ecd16e20 .65px,transparent .9px),linear-gradient(#ecd16e09 1px,transparent 1px),linear-gradient(90deg,#ecd16e09 1px,transparent 1px);background-size:auto,auto,6px 6px,96px 96px,96px 96px;pointer-events:none}
+.cover-foreground{position:absolute;top:0;left:50%;width:min(1260px,100%);padding:30px 56px;transform:translateX(-50%);color:#fffdf4}
+.cover-foreground #header{border-bottom-color:#ecd16e60}
+.cover-foreground .blogTitle,.cover-foreground .title-right .circle{color:#fffdf4;border-color:#ecd16e70}
+.cover-foreground .avatar{box-shadow:0 0 0 4px #101b36,0 0 0 6px #ecd16e}
+.cover-foreground .portfolio-hero{min-height:360px;grid-template-columns:minmax(0,1fr) 200px;padding:48px 0 42px;border:0;background:transparent;box-shadow:none;overflow:visible}
+.cover-foreground .portfolio-hero:before{display:none}
+.cover-foreground .portfolio-hero:after{right:0;top:0;width:30px;height:30px}
+.cover-foreground .portfolio-title{font-size:clamp(48px,6vw,76px);line-height:1.18;letter-spacing:-.045em;text-shadow:0 2px 24px #101b3680}
+.cover-foreground .portfolio-title em{display:block;font-style:normal}
+.cover-foreground .portfolio-note{max-width:440px}
+.cover-scroll-cue{display:block;color:#ecd16e;font-size:12px;letter-spacing:.15em}
+@media(max-width:760px){.portfolio-home{padding:0 18px 26px}.cover-scene{min-height:850px}.cover-foreground{padding:20px 18px}.cover-foreground .portfolio-hero{grid-template-columns:1fr;gap:22px;padding:25px 6px 28px;min-height:0}.cover-foreground .portfolio-title{font-size:clamp(42px,10vw,66px)}.cover-foreground .portfolio-actions{max-width:280px}.cover-photo{width:100%;object-position:center;transform-origin:center;mask-image:none}.cover-texture{background-image:linear-gradient(180deg,#101b36b8,#101b3660 50%,#101b3610),radial-gradient(circle at 92% 24%,transparent 0 269px,#ecd16e30 270px 271px,transparent 272px),radial-gradient(circle at 1px 1px,#ecd16e20 .65px,transparent .9px),linear-gradient(#ecd16e09 1px,transparent 1px),linear-gradient(90deg,#ecd16e09 1px,transparent 1px)}}
+@media(prefers-reduced-motion:reduce){.cover-photo{clip-path:none;transform:none}.cover-scroll-cue{visibility:hidden}}
+@media(max-width:760px){.about-profile{grid-template-columns:64px minmax(0,1fr);gap:18px;padding:23px 20px}.about-portrait{width:64px;height:64px}.about-copy>h3{font-size:27px}.about-tab{min-width:56px;padding:12px 6px;font-size:15px}.about-panels{padding:22px 20px}.about-content img{max-height:400px}}
+
+/* A photographic coda echoes the opening, revealing its full frame on arrival. */
+.closing-scene{height:calc(clamp(300px,52.734375vw,900px) + 240px);min-height:0;margin-top:64px;margin-bottom:0;background:#101b26}
+.closing-scene .cover-backdrop{height:clamp(300px,52.734375vw,900px);top:max(0px,calc(100svh - clamp(300px,52.734375vw,900px)))}
+.closing-scene .cover-photo{width:100%;height:100%;margin:0;object-fit:contain;object-position:center;transform-origin:center;mask-image:none}
+.closing-scene .cover-texture{background-image:linear-gradient(180deg,#101b26 0%,#101b2640 16%,#101b2610 55%,#101b2670 100%),radial-gradient(circle at 92% 24%,transparent 0 269px,#ecd16e20 270px 271px,transparent 272px 293px,#ecd16e10 294px 295px,transparent 296px),radial-gradient(circle at 1px 1px,#ecd16e16 .65px,transparent .9px),linear-gradient(#ecd16e08 1px,transparent 1px),linear-gradient(90deg,#ecd16e08 1px,transparent 1px)}
+@media(max-width:760px){.closing-scene{margin-top:40px}}
+
+/* Quiet archive: warm paper, mist blue and the deep blue of evening. */
+:root{--paper:#eee9dc;--surface:#f8f5ed;--ink:#283c50;--muted:#63717d;--line:#c7c9c3;--blue:#365f7b;--soft:#e1e8ea;--shadow:none;--texture-line:#395b7206;--texture-dot:#395b720b;--texture-glow:#d2bd8420}
+html[data-color-mode=dark]{--paper:#17232f;--surface:#202f3d;--ink:#e4e7df;--muted:#acb9bf;--line:#455664;--blue:#a6c8db;--soft:#304352;--texture-line:#bcced706;--texture-dot:#bcced70b;--texture-glow:#bfa9770b}
+body{font-family:"Segoe UI","Noto Sans SC",sans-serif}
+#header{border-bottom:1px solid var(--line)}
+.title-left .blogTitle{font-weight:600;letter-spacing:.06em}
+.title-right .circle{border:1px solid var(--line);color:var(--ink)}
+.title-right .circle:hover{background:var(--soft);color:var(--ink)}
+.avatar{border:1px solid var(--line);box-shadow:none}
+.category-heading,.archive-heading{margin-bottom:22px}
+.category-heading h2,.archive-heading h2{font-family:"Noto Serif SC","Songti SC",SimSun,serif;font-size:26px;font-weight:500;letter-spacing:.1em}
+.category-heading span,.archive-heading span{color:var(--muted);font-size:10px;font-weight:500;letter-spacing:.18em}
+.category-grid{gap:22px;margin-bottom:60px}
+.category-card{min-height:210px;padding:28px;border:1px solid var(--line);border-radius:2px;box-shadow:none;background:var(--surface);color:var(--ink);transition:transform .2s,border-color .2s}
+.category-card:nth-child(2){background:#e0e7e7;color:#283c50}
+.category-card:nth-child(3){background:#2b455d;color:#f3eee1}
+.category-card:before{width:38px;height:1px;top:28px;right:28px;background:#8da7b5;clip-path:none}
+.category-card:nth-child(2):before,.category-card:nth-child(3):before{background:#baaf8d}
+.category-card:hover{transform:translateY(-3px);box-shadow:none;border-color:#7e99a8;color:var(--ink)}
+.category-card:nth-child(2):hover{color:#283c50}.category-card:nth-child(3):hover{color:#f3eee1}
+.category-index,.category-card:nth-child(2) .category-index{color:#536d7e;font-size:10px;font-weight:500;letter-spacing:.16em}
+.category-card:nth-child(3) .category-index{color:#c7d1d1}
+.category-card h3{font-family:"Noto Serif SC","Songti SC",SimSun,serif;font-size:29px;font-weight:500;line-height:1.35;letter-spacing:.12em}
+.category-card p{font-size:12px;font-weight:400;letter-spacing:.04em}
+.category-arrow,.category-card:nth-child(2) .category-arrow{color:#536d7e;font-weight:400}.category-card:nth-child(3) .category-arrow{color:#cfccbb}
+.about-section{margin-bottom:60px}.about-profile{padding:36px;background:#2b455d;border:0;color:#f3eee1}
+.about-portrait{border:1px solid #bdc7c4}.about-eyebrow{color:#cfc4a2;font-weight:500}.about-copy>h3{font-weight:500;letter-spacing:.1em}
+.about-profile a{color:#d9d2b9}.about-tabs{border-color:var(--line)}
+.about-tab{font-weight:500;letter-spacing:.08em}.about-tab[aria-selected=true]{color:var(--ink);background:var(--soft);border-bottom-color:#7394a5}
+.about-panels{border-color:var(--line);box-shadow:none;padding:32px}.about-content{line-height:2}
+.SideNav{gap:0}.SideNav-item{min-height:110px;border:0!important;border-bottom:1px solid var(--line)!important;background:transparent;border-radius:0!important;box-shadow:none;padding:25px 12px!important}
+.SideNav-item:hover{background:var(--surface);transform:none;box-shadow:none;border-color:var(--line)!important}
+.SideNav-icon{border:0;background:var(--soft);color:var(--blue)}.listTitle{font-size:19px;font-weight:500;letter-spacing:.02em}
+.listLabels .Label{border:0;border-radius:2px;background:var(--soft)!important;color:var(--blue)!important;font-weight:500;padding:5px 9px}
+.listLabels .LabelTime{color:var(--muted)!important;background:transparent!important}
+#footer{border-top:1px solid var(--line);color:var(--muted);font-weight:400}#footer a{color:var(--ink)}
+.cover-texture{opacity:.76}.cover-foreground .portfolio-title{font-family:"Noto Serif SC","Songti SC",SimSun,serif;font-weight:400;letter-spacing:.06em;line-height:1.4}
+.portfolio-kicker,.cover-scroll-cue{color:#ddd2b1;font-weight:400}.cover-foreground .portfolio-title em{color:#e8ddbb}
+.cover-foreground .portfolio-note{color:#d3dce1;font-weight:400;line-height:1.9}
+.cover-foreground .portfolio-hero:after{display:none}.cover-foreground .avatar{box-shadow:none;border-color:#c8c7b5}
+.portfolio-action{background:#eee9dce8;border:1px solid #c6c8ba;box-shadow:none;color:#283c50;font-size:13px;font-weight:500;letter-spacing:.06em;transition:background .2s}
+.portfolio-action:hover{background:#f8f5ed;transform:none;box-shadow:none;color:#283c50}
+.closing-scene .cover-backdrop{top:0}.closing-scene .cover-photo{clip-path:inset(0 0 100% 0);transform:none}
+#postBody{border:1px solid var(--line)!important;background:var(--surface);box-shadow:none;color:var(--ink)}
+#postBody h2{border-color:var(--line)}#postBody blockquote{border-left:2px solid #91a7af;background:var(--soft);color:var(--ink)}
+#postBody pre{border:1px solid var(--line);background:var(--soft);color:var(--ink);box-shadow:none}
+.postTitle{font-family:"Noto Serif SC","Songti SC",SimSun,serif;font-weight:500;line-height:1.5}
+body:has(.tagTitle) .tagTitle{color:var(--ink);font-weight:500}
+#taglabel .Label{border:0!important;background:var(--soft)!important;color:var(--ink)!important;font-weight:500}
+html[data-color-mode=dark] .category-card:first-child .category-index,html[data-color-mode=dark] .category-card:first-child .category-arrow{color:var(--blue)}
+@media(max-width:760px){.category-grid{gap:14px;margin-bottom:44px}.category-card{min-height:170px;padding:24px}.category-heading h2,.archive-heading h2{font-size:24px}.about-section{margin-bottom:44px}.about-profile{padding:26px 22px}.about-panels{padding:24px 20px}.cover-foreground .portfolio-title{font-size:clamp(36px,9vw,58px)}}
+@media(prefers-reduced-motion:reduce){.closing-scene .cover-photo{clip-path:none}}
+
+.portfolio-home #content>.category-heading{max-width:none;margin:0 0 22px!important}.portfolio-home #content>.category-heading:before{display:none}
+</style><script>document.addEventListener("DOMContentLoaded", () => {
   const categories = [
     { label: "信息作品", number: "01", title: ["信息", "作品"], note: "设计、研究与可视化表达" },
     { label: "绘画作品", number: "02", title: ["绘画", "作品"], note: "插画、角色与视觉练习" },
@@ -193,10 +276,10 @@ html[data-color-mode=dark] .category-heading span,html[data-color-mode=dark] .ar
     document.body.classList.add("portfolio-home");
     const hero = make("section", "portfolio-hero");
     const copy = make("div");
-    copy.append(make("p", "portfolio-kicker", "月夜档案 / MIDNIGHT WORKS"));
+    copy.append(make("p", "portfolio-kicker", "创作者档案 / CREATOR ARCHIVE"));
     const title = make("h1", "portfolio-title");
-    title.append(document.createTextNode("把脑海里的东西，"));
-    const accent = make("em", "", "把想象带到现实。");
+    title.append(document.createTextNode("成为一个"));
+    const accent = make("em", "", "不一样的人。");
     title.append(accent);
     copy.append(title);
     const intro = make("p", "portfolio-note", description.textContent.trim());
@@ -296,6 +379,70 @@ html[data-color-mode=dark] .category-heading span,html[data-color-mode=dark] .ar
     about.append(aboutHeading, profile, tabs, panels, status);
     description.before(hero, heading, grid, about, archive);
     description.hidden = true;
+
+    // A full-bleed photographic opening; scroll reveals the crop without moving the page layout.
+    const scene = make("section", "cover-scene");
+    scene.setAttribute("aria-label", "野花与草地封面");
+    const backdrop = make("div", "cover-backdrop");
+    backdrop.setAttribute("aria-hidden", "true");
+    const photo = make("img", "cover-photo");
+    photo.src = new URL("assets/meadow-cover.jpg", document.baseURI).href;
+    photo.alt = "";
+    photo.width = 1080;
+    photo.height = 1082;
+    photo.fetchPriority = "high";
+    backdrop.append(photo, make("div", "cover-texture"));
+    const foreground = make("div", "cover-foreground");
+    const header = document.querySelector("#header");
+    scene.append(backdrop, foreground);
+    document.body.prepend(scene);
+    if (header) foreground.append(header);
+    foreground.append(hero);
+    const cue = make("span", "cover-scroll-cue", "向下滑动，展开这一刻 ↓");
+    foreground.append(cue);
+    const closing = make("section", "cover-scene closing-scene");
+    closing.setAttribute("aria-label", "暮色、身影与飞鸟封面");
+    const closingBackdrop = make("div", "cover-backdrop");
+    closingBackdrop.setAttribute("aria-hidden", "true");
+    const closingPhoto = make("img", "cover-photo");
+    closingPhoto.src = new URL("assets/twilight-cover.jpg", document.baseURI).href;
+    closingPhoto.alt = "";
+    closingPhoto.width = 2048;
+    closingPhoto.height = 1080;
+    closingPhoto.loading = "lazy";
+    closingPhoto.decoding = "async";
+    closingBackdrop.append(closingPhoto, make("div", "cover-texture"));
+    closing.append(closingBackdrop);
+    const pageFooter = document.querySelector("#footer");
+    if (pageFooter) pageFooter.before(closing);
+    else document.body.append(closing);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let frame = 0;
+    let previousProgress = -1;
+    let previousClosingProgress = -1;
+    const renderCover = () => {
+      frame = 0;
+      const progress = reducedMotion.matches ? 1 : Math.min(1, Math.max(0, -scene.getBoundingClientRect().top / 240));
+      if (progress !== previousProgress) {
+      previousProgress = progress;
+      photo.style.clipPath = `inset(0 0 ${32 * (1 - progress)}% 0)`;
+      photo.style.transform = `scale(${1 + .08 * (1 - progress)})`;
+      cue.style.opacity = String(1 - progress);
+      }
+      const closingProgress = reducedMotion.matches ? 1 : Math.min(1, Math.max(0,
+        (window.innerHeight - closing.getBoundingClientRect().top) / (Math.min(window.innerHeight, closingBackdrop.offsetHeight) + 240)));
+      if (closingProgress !== previousClosingProgress) {
+        previousClosingProgress = closingProgress;
+        closingPhoto.style.clipPath = `inset(0 0 ${100 * (1 - closingProgress)}% 0)`;
+        closingPhoto.style.transform = "none";
+      }
+    };
+    const scheduleCover = () => { if (!frame) frame = requestAnimationFrame(renderCover); };
+    window.addEventListener("scroll", scheduleCover, { passive: true });
+    window.addEventListener("resize", scheduleCover);
+    window.addEventListener("pageshow", scheduleCover);
+    reducedMotion.addEventListener("change", scheduleCover);
+    renderCover();
 
     // The personal file has its own space, outside the recent works list.
     home.querySelectorAll(".SideNav-item").forEach(item => {
@@ -402,7 +549,8 @@ html[data-color-mode=dark] .category-heading span,html[data-color-mode=dark] .ar
       subtree: true
     });
   }
-});</script>
+});
+</script>
     <link rel="icon" href="https://avatars.githubusercontent.com/u/307934510?v=4"><script>
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);

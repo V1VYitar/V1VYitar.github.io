@@ -16,10 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add("portfolio-home");
     const hero = make("section", "portfolio-hero");
     const copy = make("div");
-    copy.append(make("p", "portfolio-kicker", "月夜档案 / MIDNIGHT WORKS"));
+    copy.append(make("p", "portfolio-kicker", "创作者档案 / CREATOR ARCHIVE"));
     const title = make("h1", "portfolio-title");
-    title.append(document.createTextNode("把脑海里的东西，"));
-    const accent = make("em", "", "把想象带到现实。");
+    title.append(document.createTextNode("成为一个"));
+    const accent = make("em", "", "不一样的人。");
     title.append(accent);
     copy.append(title);
     const intro = make("p", "portfolio-note", description.textContent.trim());
@@ -119,6 +119,70 @@ document.addEventListener("DOMContentLoaded", () => {
     about.append(aboutHeading, profile, tabs, panels, status);
     description.before(hero, heading, grid, about, archive);
     description.hidden = true;
+
+    // A full-bleed photographic opening; scroll reveals the crop without moving the page layout.
+    const scene = make("section", "cover-scene");
+    scene.setAttribute("aria-label", "野花与草地封面");
+    const backdrop = make("div", "cover-backdrop");
+    backdrop.setAttribute("aria-hidden", "true");
+    const photo = make("img", "cover-photo");
+    photo.src = new URL("assets/meadow-cover.jpg", document.baseURI).href;
+    photo.alt = "";
+    photo.width = 1080;
+    photo.height = 1082;
+    photo.fetchPriority = "high";
+    backdrop.append(photo, make("div", "cover-texture"));
+    const foreground = make("div", "cover-foreground");
+    const header = document.querySelector("#header");
+    scene.append(backdrop, foreground);
+    document.body.prepend(scene);
+    if (header) foreground.append(header);
+    foreground.append(hero);
+    const cue = make("span", "cover-scroll-cue", "向下滑动，展开这一刻 ↓");
+    foreground.append(cue);
+    const closing = make("section", "cover-scene closing-scene");
+    closing.setAttribute("aria-label", "暮色、身影与飞鸟封面");
+    const closingBackdrop = make("div", "cover-backdrop");
+    closingBackdrop.setAttribute("aria-hidden", "true");
+    const closingPhoto = make("img", "cover-photo");
+    closingPhoto.src = new URL("assets/twilight-cover.jpg", document.baseURI).href;
+    closingPhoto.alt = "";
+    closingPhoto.width = 2048;
+    closingPhoto.height = 1080;
+    closingPhoto.loading = "lazy";
+    closingPhoto.decoding = "async";
+    closingBackdrop.append(closingPhoto, make("div", "cover-texture"));
+    closing.append(closingBackdrop);
+    const pageFooter = document.querySelector("#footer");
+    if (pageFooter) pageFooter.before(closing);
+    else document.body.append(closing);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let frame = 0;
+    let previousProgress = -1;
+    let previousClosingProgress = -1;
+    const renderCover = () => {
+      frame = 0;
+      const progress = reducedMotion.matches ? 1 : Math.min(1, Math.max(0, -scene.getBoundingClientRect().top / 240));
+      if (progress !== previousProgress) {
+      previousProgress = progress;
+      photo.style.clipPath = `inset(0 0 ${32 * (1 - progress)}% 0)`;
+      photo.style.transform = `scale(${1 + .08 * (1 - progress)})`;
+      cue.style.opacity = String(1 - progress);
+      }
+      const closingProgress = reducedMotion.matches ? 1 : Math.min(1, Math.max(0,
+        (window.innerHeight - closing.getBoundingClientRect().top) / (Math.min(window.innerHeight, closingBackdrop.offsetHeight) + 240)));
+      if (closingProgress !== previousClosingProgress) {
+        previousClosingProgress = closingProgress;
+        closingPhoto.style.clipPath = `inset(0 0 ${100 * (1 - closingProgress)}% 0)`;
+        closingPhoto.style.transform = "none";
+      }
+    };
+    const scheduleCover = () => { if (!frame) frame = requestAnimationFrame(renderCover); };
+    window.addEventListener("scroll", scheduleCover, { passive: true });
+    window.addEventListener("resize", scheduleCover);
+    window.addEventListener("pageshow", scheduleCover);
+    reducedMotion.addEventListener("change", scheduleCover);
+    renderCover();
 
     // The personal file has its own space, outside the recent works list.
     home.querySelectorAll(".SideNav-item").forEach(item => {
